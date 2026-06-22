@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Riza Putra Mugiartho Mohan — Portofolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#070b14;
+    --navy:#0d1526;
+    --navy-panel:#101b30;
+    --navy-line:#1e2c46;
+    --cyan-signal:#5ee7ff;
+    --cyan-dim:#2c5266;
+    --ink:#e8edf6;
+    --ink-dim:#8b9ab0;
+    --ink-faint:#566378;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--navy-deep);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+    position:relative;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* signature ambient grid — network topology lines */
+  .net-bg{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      linear-gradient(var(--navy-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--navy-line) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.25;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 70%);
+  }
+  .net-glow{
+    position:fixed; top:-20%; left:50%; transform:translateX(-50%);
+    width:900px; height:900px; z-index:0; pointer-events:none;
+    background:radial-gradient(circle, rgba(94,231,255,0.07) 0%, transparent 60%);
+  }
+
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--cyan-signal); color:var(--navy-deep);}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--cyan-signal);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--cyan-signal);
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(7,11,20,0.7);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--navy-line);
+  }
+  .nav-inner{
+    max-width:1080px; margin:0 auto; padding:18px 28px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .nav-id{font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--ink-dim); display:flex; align-items:center; gap:8px;}
+  .ping{width:7px; height:7px; border-radius:50%; background:var(--cyan-signal); box-shadow:0 0 8px var(--cyan-signal); animation:pulse 2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.35;}}
+  .nav-links{display:flex; gap:28px; font-size:13px; color:var(--ink-dim);}
+  .nav-links a{transition:color 0.2s;}
+  .nav-links a:hover{color:var(--cyan-signal);}
+  @media (max-width:640px){ .nav-links{display:none;} }
+
+  /* ---------- HERO ---------- */
+  header{
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    position:relative; padding-top:80px;
+  }
+  .hero-tag{
+    display:inline-flex; align-items:center; gap:10px;
+    border:1px solid var(--navy-line); border-radius:99px;
+    padding:6px 16px; margin-bottom:28px;
+    width:fit-content;
+  }
+  .hero-tag span{font-size:12px; color:var(--ink-dim); font-family:'JetBrains Mono',monospace;}
+
+  .hero-top{display:flex; align-items:center; gap:24px; margin-bottom:8px;}
+  .avatar{
+    width:84px; height:84px; border-radius:14px;
+    object-fit:cover;
+    border:1px solid var(--navy-line);
+    box-shadow:0 0 0 4px rgba(94,231,255,0.06);
+    flex-shrink:0;
+  }
+  @media (max-width:540px){ .avatar{width:64px; height:64px; border-radius:12px;} }
+
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(40px, 7vw, 76px);
+    line-height:1.02;
+    letter-spacing:-0.02em;
+    max-width:880px;
+  }
+  h1 .accent{color:var(--cyan-signal);}
+
+  .hero-sub{
+    margin-top:24px;
+    font-size:18px;
+    color:var(--ink-dim);
+    max-width:560px;
+    line-height:1.6;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:32px;
+    margin-top:48px;
+    padding-top:28px;
+    border-top:1px solid var(--navy-line);
+  }
+  .hero-meta-item .label{margin-bottom:6px; display:block;}
+  .hero-meta-item div.val{font-size:15px; color:var(--ink);}
+
+  .scroll-hint{
+    position:absolute; bottom:36px; left:28px;
+    font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-faint);
+    display:flex; align-items:center; gap:8px;
+  }
+  .scroll-hint .line{width:1px; height:28px; background:linear-gradient(to bottom, var(--cyan-signal), transparent); animation:flow 1.8s ease-in-out infinite;}
+  @keyframes flow{0%{opacity:0.2;} 50%{opacity:1;} 100%{opacity:0.2;}}
+
+  /* ---------- SECTION shared ---------- */
+  section{padding:120px 0; position:relative;}
+  .sec-head{margin-bottom:56px;}
+  .sec-head .label{margin-bottom:14px; display:block;}
+  .sec-head h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:clamp(28px,4vw,40px);
+    letter-spacing:-0.01em;
+  }
+  .sec-head p{color:var(--ink-dim); margin-top:12px; max-width:540px; font-size:15px; line-height:1.6;}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px;}
+  @media (max-width:760px){.about-grid{grid-template-columns:1fr;}}
+  .about-text p{color:var(--ink-dim); line-height:1.8; font-size:16px; margin-bottom:16px;}
+  .about-text strong{color:var(--ink); font-weight:600;}
+
+  .id-card{
+    background:var(--navy-panel);
+    border:1px solid var(--navy-line);
+    border-radius:14px;
+    padding:28px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+  }
+  .id-card .row{display:flex; justify-content:space-between; padding:11px 0; border-bottom:1px dashed var(--navy-line);}
+  .id-card .row:last-child{border-bottom:none;}
+  .id-card .k{color:var(--ink-faint);}
+  .id-card .v{color:var(--ink); text-align:right;}
+
+  /* ---------- SKILLS as a "network topology" ---------- */
+  .skill-rail{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--navy-line);
+    border:1px solid var(--navy-line);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  @media (max-width:760px){.skill-rail{grid-template-columns:repeat(2,1fr);}}
+  .skill-node{
+    background:var(--navy-panel);
+    padding:28px 22px;
+    transition:background 0.25s;
+  }
+  .skill-node:hover{background:#13203a;}
+  .skill-node .tag{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--cyan-signal); letter-spacing:0.08em; margin-bottom:10px; display:block;}
+  .skill-node h3{font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; margin-bottom:8px;}
+  .skill-node p{font-size:13px; color:var(--ink-dim); line-height:1.55;}
+
+  /* ---------- PROJECTS ---------- */
+  .proj-list{display:flex; flex-direction:column; border-top:1px solid var(--navy-line);}
+  .proj-row{
+    display:grid; grid-template-columns:100px 1fr auto;
+    gap:24px; align-items:start;
+    padding:32px 0;
+    border-bottom:1px solid var(--navy-line);
+    transition:padding-left 0.25s;
+  }
+  .proj-row:hover{padding-left:10px; background:linear-gradient(to right, rgba(94,231,255,0.04), transparent);}
+  @media (max-width:640px){.proj-row{grid-template-columns:1fr; gap:8px;}}
+  .proj-row .pid{font-family:'JetBrains Mono',monospace; color:var(--cyan-dim); font-size:13px; padding-top:4px;}
+  .proj-row h3{font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:600; margin-bottom:8px;}
+  .proj-row p{color:var(--ink-dim); font-size:14px; line-height:1.65; max-width:520px;}
+  .proj-stack{display:flex; gap:8px; flex-wrap:wrap; align-self:start; justify-content:flex-end;}
+  @media (max-width:640px){.proj-stack{justify-content:flex-start; margin-top:10px;}}
+  .chip{
+    font-family:'JetBrains Mono',monospace; font-size:11px;
+    border:1px solid var(--navy-line); color:var(--ink-dim);
+    padding:5px 10px; border-radius:6px; white-space:nowrap;
+  }
+
+  /* ---------- INTERESTS ---------- */
+  .interest-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  @media (max-width:760px){.interest-grid{grid-template-columns:1fr;}}
+  .interest-card{
+    background:var(--navy-panel);
+    border:1px solid var(--navy-line);
+    border-radius:14px;
+    padding:26px;
+  }
+  .interest-card .icon{
+    width:38px; height:38px; border-radius:8px;
+    background:rgba(94,231,255,0.08); border:1px solid var(--cyan-dim);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:18px; font-size:17px;
+  }
+  .interest-card h3{font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; margin-bottom:8px;}
+  .interest-card p{font-size:13px; color:var(--ink-dim); line-height:1.6;}
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{
+    padding:90px 0 50px;
+    border-top:1px solid var(--navy-line);
+  }
+  .cta-block h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(30px,5vw,48px);
+    font-weight:700;
+    letter-spacing:-0.01em;
+    max-width:600px;
+    line-height:1.1;
+  }
+  .cta-block p{color:var(--ink-dim); margin-top:16px; max-width:480px; line-height:1.6;}
+  .foot-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:60px; padding-top:24px; border-top:1px solid var(--navy-line);
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ink-faint);
+    flex-wrap:wrap; gap:12px;
+  }
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity 0.6s ease, transform 0.6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- SOCIAL CONTACT ---------- */
+  .contact-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:40px;}
+  @media (max-width:760px){.contact-grid{grid-template-columns:repeat(2,1fr);}}
+  .contact-card{
+    background:var(--navy-panel);
+    border:1px solid var(--navy-line);
+    border-radius:14px;
+    padding:22px;
+    display:flex; flex-direction:column; gap:14px;
+    transition:border-color 0.25s, transform 0.25s;
+  }
+  .contact-card:hover{border-color:var(--cyan-dim); transform:translateY(-3px);}
+  .contact-icon{
+    width:38px; height:38px; border-radius:9px;
+    background:rgba(94,231,255,0.08); border:1px solid var(--cyan-dim);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .contact-icon svg{width:18px; height:18px;}
+  .contact-card .c-label{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-faint); letter-spacing:0.06em; text-transform:uppercase;}
+  .contact-card .c-val{font-size:14px; color:var(--ink); font-weight:500; word-break:break-word;}
+
+  /* ---------- DESKTOP MODE TOGGLE ---------- */
+  .laptop-toggle{
+    position:fixed; bottom:24px; right:24px; z-index:60;
+    width:52px; height:52px; border-radius:14px;
+    background:var(--navy-panel);
+    border:1px solid var(--navy-line);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    transition:border-color 0.2s, background 0.2s;
+  }
+  .laptop-toggle:hover{border-color:var(--cyan-signal); background:#13203a;}
+  .laptop-toggle.active{border-color:var(--cyan-signal); box-shadow:0 0 0 3px rgba(94,231,255,0.12);}
+  .laptop-toggle svg{width:22px; height:22px; stroke:var(--ink-dim); transition:stroke 0.2s;}
+  .laptop-toggle.active svg{stroke:var(--cyan-signal);}
+  .laptop-toggle .tip{
+    position:absolute; bottom:62px; right:0;
+    font-family:'JetBrains Mono',monospace; font-size:11px;
+    background:var(--navy-panel); border:1px solid var(--navy-line);
+    color:var(--ink-dim); padding:6px 10px; border-radius:8px;
+    white-space:nowrap; opacity:0; pointer-events:none;
+    transition:opacity 0.2s;
+  }
+  .laptop-toggle:hover .tip{opacity:1;}
+</style>
+</head>
+<body>
+
+<div class="net-bg"></div>
+<div class="net-glow"></div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-id"><span class="ping"></span>R.PUTRA / TJKT</div>
+    <div class="nav-links">
+      <a href="#tentang">Tentang</a>
+      <a href="#keahlian">Keahlian</a>
+      <a href="#proyek">Proyek</a>
+      <a href="#kontak">Kontak</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <header>
+    <div class="hero-tag"><span class="ping"></span><span>STATUS: SISWA AKTIF — SMK YADIKA 12</span></div>
+    <div class="hero-top">
+      <img class="avatar" src="https://i.ibb.co.com/TM89B5mm/96919.jpg" alt="Foto Riza Putra Mugiartho Mohan">
+    </div>
+    <h1>Riza Putra<br>Mugiartho <span class="accent">Mohan</span></h1>
+    <p class="hero-sub">Siswa Teknik Jaringan Komputer dan Telekomunikasi yang membangun pemahaman dari kabel fiber sampai baris kode — menghubungkan jaringan, perangkat, dan sistem jadi satu.</p>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="label">Lahir</span>
+        <div class="val">Jakarta, 23 Maret 2009</div>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Jurusan</span>
+        <div class="val">Teknik Jaringan Komputer & Telekomunikasi</div>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Sekolah</span>
+        <div class="val">SMK Yadika 12</div>
+      </div>
+    </div>
+
+    <div class="scroll-hint"><div class="line"></div>SCROLL</div>
+  </header>
+
+  <section id="tentang">
+    <div class="sec-head reveal">
+      <span class="label">01 — Tentang</span>
+      <h2>Dari instalasi jaringan ke robotika</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>Saya <strong>Riza Putra Mugiartho Mohan</strong>, siswa jurusan <strong>Teknik Jaringan Komputer dan Telekomunikasi (TJKT)</strong> di SMK Yadika 12. Ketertarikan saya bermula dari hal-hal teknis di balik infrastruktur jaringan — bagaimana data mengalir dari satu titik ke titik lain, baik lewat kabel fiber optik maupun gelombang nirkabel.</p>
+        <p>Dari situ, eksplorasi saya berkembang ke arah yang lebih luas: dari konfigurasi jaringan, pemrograman web, sampai membangun lengan robot dari mikrokontroler ESP32. Saya senang belajar hal baru dengan cara langsung praktik dan menyelesaikan masalah nyata.</p>
+        <p>Di luar dunia teknis, saya aktif di pencak silat, gym, dan voli — disiplin yang sama yang saya bawa ke cara saya belajar: konsisten dan bertahap.</p>
+      </div>
+      <div class="id-card reveal">
+        <div class="row"><span class="k">nama</span><span class="v">Riza Putra M. Mohan</span></div>
+        <div class="row"><span class="k">tempat_lahir</span><span class="v">Jakarta</span></div>
+        <div class="row"><span class="k">tanggal_lahir</span><span class="v">23-03-2009</span></div>
+        <div class="row"><span class="k">sekolah</span><span class="v">SMK Yadika 12</span></div>
+        <div class="row"><span class="k">jurusan</span><span class="v">TJKT</span></div>
+        <div class="row"><span class="k">hobi</span><span class="v">Silat, Gym, Voli</span></div>
+        <div class="row"><span class="k">status</span><span class="v" style="color:var(--cyan-signal)">open_to_learn</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="keahlian">
+    <div class="sec-head reveal">
+      <span class="label">02 — Keahlian</span>
+      <h2>Yang sudah dipelajari & dipraktikkan</h2>
+      <p>Empat simpul keahlian yang saling terhubung — dari fisik kabel sampai logika kode.</p>
+    </div>
+    <div class="skill-rail reveal">
+      <div class="skill-node">
+        <span class="tag">NET / 01</span>
+        <h3>Instalasi Jaringan</h3>
+        <p>Pemasangan dan penataan infrastruktur jaringan LAN dari nol.</p>
+      </div>
+      <div class="skill-node">
+        <span class="tag">NET / 02</span>
+        <h3>Fiber Optik</h3>
+        <p>Mutus dan memasang kabel fiber optik, termasuk penyambungan core.</p>
+      </div>
+      <div class="skill-node">
+        <span class="tag">NET / 03</span>
+        <h3>Konfigurasi Mikrotik</h3>
+        <p>Setup hotspot dan pengaturan dasar router Mikrotik.</p>
+      </div>
+      <div class="skill-node">
+        <span class="tag">DEV / 04</span>
+        <h3>Pemrograman Web</h3>
+        <p>Membangun halaman web sederhana dari struktur sampai tampilan.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="proyek">
+    <div class="sec-head reveal">
+      <span class="label">03 — Proyek</span>
+      <h2>Hal-hal yang sudah dibangun</h2>
+    </div>
+    <div class="proj-list reveal">
+      <div class="proj-row">
+        <div class="pid mono">PRJ.01</div>
+        <div>
+          <h3>Instalasi CCTV</h3>
+          <p>Pemasangan sistem CCTV lengkap dari perangkat kamera, kabel, hingga konfigurasi agar siap dipantau.</p>
+        </div>
+        <div class="proj-stack"><span class="chip">Jaringan</span><span class="chip">Hardware</span></div>
+      </div>
+      <div class="proj-row">
+        <div class="pid mono">PRJ.02</div>
+        <div>
+          <h3>Website Sederhana</h3>
+          <p>Membangun halaman web dasar untuk memahami struktur HTML, gaya CSS, dan logika dasar interaksi.</p>
+        </div>
+        <div class="proj-stack"><span class="chip">HTML</span><span class="chip">CSS</span></div>
+      </div>
+      <div class="proj-row">
+        <div class="pid mono">PRJ.03</div>
+        <div>
+          <h3>Arm Robot berbasis ESP32</h3>
+          <p>Merancang dan membangun lengan robot yang dikendalikan mikrokontroler ESP32 — menggabungkan elektronika dan logika kontrol gerak.</p>
+        </div>
+        <div class="proj-stack"><span class="chip">ESP32</span><span class="chip">Robotika</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ketertarikan">
+    <div class="sec-head reveal">
+      <span class="label">04 — Ketertarikan</span>
+      <h2>Hal-hal yang ingin terus didalami</h2>
+    </div>
+    <div class="interest-grid reveal">
+      <div class="interest-card">
+        <div class="icon">📈</div>
+        <h3>Pasar Saham</h3>
+        <p>Mempelajari cara kerja investasi dan dinamika pasar modal.</p>
+      </div>
+      <div class="interest-card">
+        <div class="icon">🤖</div>
+        <h3>AI Assistant</h3>
+        <p>Memanfaatkan asisten AI untuk belajar dan menyelesaikan pekerjaan lebih efisien.</p>
+      </div>
+      <div class="interest-card">
+        <div class="icon">🎬</div>
+        <h3>Akting Film/Sinetron</h3>
+        <p>Tertarik mendalami dunia akting di depan kamera, baik film maupun sinetron.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="kontak">
+    <div class="cta-block reveal">
+      <h2>Tertarik berkolaborasi atau sekadar terhubung?</h2>
+      <p>Terbuka untuk kesempatan magang, proyek jaringan, atau sekadar ngobrol soal teknologi.</p>
+    </div>
+
+    <div class="contact-grid reveal">
+      <a class="contact-card" href="https://wa.me/6289857034784" target="_blank" rel="noopener">
+        <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#5ee7ff" stroke-width="1.7"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+        <span class="c-label">WhatsApp</span>
+        <span class="c-val">0898-5703-478</span>
+      </a>
+      <a class="contact-card" href="https://instagram.com/rizzamohann2330" target="_blank" rel="noopener">
+        <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#5ee7ff" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r="0.6" fill="#5ee7ff"/></svg></div>
+        <span class="c-label">Instagram</span>
+        <span class="c-val">rizzamohann2330</span>
+      </a>
+      <a class="contact-card" href="https://tiktok.com/@mohansbr.limited" target="_blank" rel="noopener">
+        <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#5ee7ff" stroke-width="1.7"><path d="M16 4v9.5a3.5 3.5 0 1 1-3-3.46"/><path d="M16 4c0 2.5 2 4.5 4.5 4.5"/></svg></div>
+        <span class="c-label">TikTok</span>
+        <span class="c-val">mohansbr.limited</span>
+      </a>
+      <a class="contact-card" href="mailto:mohan.riza@gmail.com">
+        <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#5ee7ff" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg></div>
+        <span class="c-label">Gmail</span>
+        <span class="c-val">mohan.riza@gmail.com</span>
+      </a>
+    </div>
+
+    <div class="foot-bottom">
+      <span>© 2026 Riza Putra Mugiartho Mohan</span>
+      <span>SMK YADIKA 12 — TJKT</span>
+    </div>
+  </footer>
+
+</div>
+
+<button class="laptop-toggle" id="laptopToggle" aria-label="Aktifkan mode tampilan laptop" title="Mode laptop">
+  <span class="tip">Mode laptop</span>
+  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="4" width="18" height="12" rx="1.5"/>
+    <path d="M2 20h20"/>
+  </svg>
+</button>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
+  }, {threshold:0.15});
+  els.forEach(el=>obs.observe(el));
+
+  // Mode laptop: force desktop-width viewport/layout on small screens
+  const toggle = document.getElementById('laptopToggle');
+  const viewportMeta = document.querySelector('meta[name="viewport"]');
+  let laptopMode = false;
+  toggle.addEventListener('click', ()=>{
+    laptopMode = !laptopMode;
+    toggle.classList.toggle('active', laptopMode);
+    if(laptopMode){
+      viewportMeta.setAttribute('content','width=1080');
+      document.body.style.minWidth = '1080px';
+      toggle.querySelector('.tip').textContent = 'Mode HP';
+    } else {
+      viewportMeta.setAttribute('content','width=device-width, initial-scale=1.0');
+      document.body.style.minWidth = '';
+      toggle.querySelector('.tip').textContent = 'Mode laptop';
+    }
+  });
+</script>
+
+</body>
+</html>
