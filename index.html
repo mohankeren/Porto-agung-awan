@@ -31,7 +31,6 @@
         /* Bagian Hero (Header / Latar Belakang) */
         .hero {
             height: 100vh;
-            /* Catatan: Link ibb.co.com adalah link viewer. Untuk memastikan gambar muncul, pastikan Anda menggunakan Direct Link gambar (.jpg/.png) */
             background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.8)), 
                         url('https://i.ibb.co/gLDwqqrQ/background.jpg') center/cover no-repeat;
             display: flex;
@@ -102,6 +101,165 @@
             font-size: 0.95rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-3px);
+            background-color: var(--dark-blue);
+        }
+
+        /* Gaya Khusus untuk Hobi (List) */
+        .hobby-list {
+            list-style: none;
+        }
+
+        .hobby-list li {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .hobby-list li::before {
+            content: '▹';
+            color: var(--light-blue);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Gaya Khusus untuk Kontak */
+        .contact-list {
+            list-style: none;
+        }
+
+        .contact-list li {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-list li strong {
+            display: inline-block;
+            width: 100px; /* Merapikan jarak teks */
+            color: var(--text-dark);
+        }
+
+        .contact-list a {
+            color: var(--dark-blue);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .contact-list a:hover {
+            color: var(--light-blue);
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--text-dark);
+            color: white;
+            margin-top: 40px;
+        }
+
+        /* ANIMASI SCROLL: Muncul dari atas ke bawah */
+        .animate-scroll {
+            opacity: 0;
+            transform: translateY(-60px); 
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animate-scroll.show {
+            opacity: 1;
+            transform: translateY(0); 
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bagian Hero (Header) -->
+    <header class="hero">
+        <div class="animate-scroll">
+            <h1>Muhammad Arkan Agung Setiawan</h1>
+            <p>Siswa SMK Yadika 12 | Jurusan Desain Komunikasi Visual (DKV)</p>
+        </div>
+    </header>
+
+    <!-- Bagian Konten Utama -->
+    <main class="container">
+        
+        <!-- Profil Data Diri -->
+        <section class="card animate-scroll">
+            <h2>Tentang Saya</h2>
+            <p><strong>Tempat/Tanggal Lahir:</strong> Pekalongan, 20 Mei 2009</p>
+            <p>Saya adalah siswa jurusan Desain Komunikasi Visual (DKV) yang memiliki minat besar di dunia kreatif, visual, dan multimedia.</p>
+        </section>
+
+        <!-- Keahlian -->
+        <section class="card animate-scroll">
+            <h2>Keahlian</h2>
+            <div class="skills-container">
+                <span class="skill-tag">Color Grading</span>
+                <span class="skill-tag">Fotografer</span>
+                <span class="skill-tag">Videograph</span>
+                <span class="skill-tag">Grafik Design</span>
+                <span class="skill-tag">Film Making</span>
+            </div>
+        </section>
+
+        <!-- Hobi -->
+        <section class="card animate-scroll">
+            <h2>Hobi & Minat</h2>
+            <ul class="hobby-list">
+                <li>Ngedit Video</li>
+                <li>Ngedit Foto</li>
+                <li>Main Game FPS</li>
+                <li>Bermain Alat Musik</li>
+                <li>Olahraga Badminton</li>
+            </ul>
+        </section>
+
+        <!-- Hubungi Saya -->
+        <section class="card animate-scroll">
+            <h2>Hubungi Saya</h2>
+            <ul class="contact-list">
+                <li><strong>No Telp</strong> : <a href="tel:+6285774348947">085774348947</a></li>
+                <li><strong>Email</strong> : <a href="mailto:xzxzdv865@gmail.com">xzxzdv865@gmail.com</a></li>
+                <li><strong>Instagram</strong> : <a href="https://www.instagram.com/bumi_berkuda" target="_blank">@bumi_berkuda</a></li>
+                <li><strong>TikTok</strong> : <a href="https://www.tiktok.com/@Xzxzdv" target="_blank">@Xzxzdv</a></li>
+            </ul>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Muhammad Arkan Agung Setiawan. Portofolio DKV.</p>
+    </footer>
+
+    <!-- SCRIPT UNTUK ANIMASI SCROLL -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, {
+            threshold: 0.1 
+        });
+
+        const hiddenElements = document.querySelectorAll('.animate-scroll');
+        hiddenElements.forEach((el) => observer.observe(el));
+    </script>
+</body>
+</html>
         }
 
         .skill-tag:hover {
