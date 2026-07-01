@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goku — Son of Saiyans</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+  :root{
+    --bg: #fff8ed;
+    --panel: #ffffff;
+    --ink: #241a12;
+    --muted: #7a6a58;
+    --sun: #ff8a1e;
+    --ember: #e6432b;
+    --gold: #ffc93c;
+    --dusk: #2b1b3d;
+    --line: #f0e2cd;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family:'Inter', sans-serif;
+    padding: 24px;
+  }
+  .app{ max-width: 1180px; margin: 0 auto; }
+
+  /* ---------- Header ---------- */
+  header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 8px 4px 28px;
+  }
+  .icons{ display:flex; gap:10px; }
+  .icon-btn{
+    width:40px; height:40px; border-radius:12px;
+    background: var(--panel); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    color: var(--ember); font-size:16px;
+  }
+  nav{ display:flex; gap:34px; font-family:'Rajdhani', sans-serif; font-weight:600; font-size:16px; color:#4a3d30; }
+  nav .active{ color: var(--ember); border-bottom:2px solid var(--ember); padding-bottom:6px; }
+  .auth{ display:flex; gap:12px; }
+  .btn-ghost, .btn-solid{
+    font-family:'Rajdhani', sans-serif; font-weight:700; font-size:14px;
+    padding: 10px 22px; border-radius:999px; cursor:pointer; border:none;
+  }
+  .btn-ghost{ background:transparent; border:1.5px solid var(--ink); color:var(--ink); }
+  .btn-solid{ background: linear-gradient(135deg, var(--ember), var(--sun)); color:#fff; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative; overflow:hidden;
+    border-radius: 26px;
+    background: radial-gradient(circle at 78% 30%, #ffb347 0%, #ff8a1e 28%, #e6432b 62%, #7a1f3d 100%);
+    padding: 46px 44px;
+    display:flex; align-items:center; justify-content:space-between;
+    min-height: 300px;
+  }
+  .hero::before{
+    content:''; position:absolute; inset:0;
+    background-image: radial-gradient(#ffffff55 1px, transparent 1px);
+    background-size: 26px 26px; opacity:.25;
+  }
+  .hero-text{ position:relative; z-index:2; max-width:430px; }
+  .eyebrow{
+    font-family:'Rajdhani', sans-serif; font-weight:700; letter-spacing:3px;
+    color:#fff2d6; font-size:13px; text-transform:uppercase; margin-bottom:10px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{ content:'⚡'; }
+  .hero-text h1{
+    font-family:'Space Grotesk', sans-serif; font-size:56px; color:#fff;
+    line-height:1; margin-bottom:14px; text-shadow: 0 4px 24px rgba(0,0,0,.25);
+  }
+  .hero-text p{ color:#fff0da; font-size:15px; line-height:1.6; margin-bottom:22px; }
+  .read-more{
+    color:#fff; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:15px;
+    text-decoration:underline; text-underline-offset:5px; cursor:pointer;
+  }
+  .dots{ display:flex; gap:8px; margin-top:34px; }
+  .dots span{ width:22px; height:4px; border-radius:2px; background:#ffffff55; }
+  .dots span.on{ background:#fff; }
+
+  /* Illustration: stylized aura silhouette, not copied artwork */
+  .hero-art{ position:relative; z-index:2; width:230px; height:260px; flex-shrink:0; }
+  .aura{
+    position:absolute; inset:-30px; border-radius:50%;
+    background: radial-gradient(circle, #fff9d9aa 0%, transparent 70%);
+    filter: blur(2px);
+  }
+  .figure{ position:relative; width:100%; height:100%; }
+  .hair{
+    position:absolute; top:0; left:50%; transform:translateX(-50%);
+    width:150px; height:120px;
+  }
+  .spike{
+    position:absolute; width:0; height:0;
+    border-left:16px solid transparent; border-right:16px solid transparent;
+    border-bottom:70px solid #1c140e; bottom:20px;
+  }
+  .spike:nth-child(1){ left:0; transform:rotate(-28deg); border-bottom-color:#241a12;}
+  .spike:nth-child(2){ left:20px; transform:rotate(-14deg); height:80px;}
+  .spike:nth-child(3){ left:48px; transform:rotate(0deg); border-bottom-width:84px;}
+  .spike:nth-child(4){ left:76px; transform:rotate(14deg);}
+  .spike:nth-child(5){ left:96px; transform:rotate(28deg);}
+  .head{
+    position:absolute; top:56px; left:50%; transform:translateX(-50%);
+    width:76px; height:76px; border-radius:50%; background:#f0b389;
+  }
+  .body-gi{
+    position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+    width:130px; height:150px; border-radius:30px 30px 10px 10px;
+    background: linear-gradient(180deg, #ff7a1a, #e05a12);
+  }
+  .belt{ position:absolute; bottom:56px; left:50%; transform:translateX(-50%);
+    width:130px; height:16px; background:#2b62c9; }
+
+  /* ---------- Lower grid ---------- */
+  .grid{ display:grid; grid-template-columns: 1.3fr 1fr 1.1fr; gap:26px; margin-top:36px; }
+  .section-title{
+    font-family:'Rajdhani', sans-serif; font-weight:700; font-size:20px;
+    display:flex; align-items:center; gap:6px; margin-bottom:16px; color:var(--ink);
+  }
+  .section-title .chev{ color: var(--ember); }
+
+  .artwork-cards{ display:flex; gap:14px; }
+  .art-card{
+    flex:1; border-radius:18px; overflow:hidden; position:relative;
+    height:170px; background: linear-gradient(160deg,#ffb347,#e6432b);
+  }
+  .art-card .zap{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:40px; opacity:.85;}
+  .art-card .credit{
+    position:absolute; bottom:8px; left:10px; font-size:11px; color:#fff;
+    font-family:'Rajdhani',sans-serif; font-weight:600;
+  }
+  .view-more{
+    margin-top:14px; width:100%; padding:13px; border-radius:14px;
+    background:#fff; border:1px solid var(--line); font-family:'Rajdhani',sans-serif;
+    font-weight:700; font-size:15px; cursor:pointer;
+  }
+
+  .search-list{ display:flex; flex-direction:column; gap:10px; }
+  .search-item{
+    display:flex; align-items:center; gap:10px;
+    background:#fff; border:1px solid var(--line); border-radius:999px;
+    padding:12px 16px; font-size:14px; color:#4a3d30;
+  }
+  .search-item.dark{ background:var(--dusk); color:#fff; }
+  .search-item .mag{ color:var(--ember); }
+  .search-item.dark .mag{ color:var(--gold); }
+
+  .thumbs{ display:flex; flex-direction:column; gap:14px; }
+  .thumb-row{ position:relative; }
+  .thumb{
+    height:120px; border-radius:16px;
+    background: linear-gradient(150deg,#ffcf6b,#ff7a1a);
+    display:flex; align-items:center; justify-content:center; font-size:34px;
+  }
+  .close-x{
+    position:absolute; top:-8px; right:-8px; width:26px; height:26px; border-radius:50%;
+    background:#fff; border:1px solid var(--line); display:flex; align-items:center;
+    justify-content:center; font-size:12px; color:#4a3d30;
+  }
+
+  .facts{ display:flex; flex-direction:column; gap:14px; }
+  .fact-card{
+    background:#fff; border:1px solid var(--line); border-radius:16px;
+    padding:14px 16px; display:flex; gap:12px; align-items:flex-start;
+  }
+  .fact-icon{
+    width:38px; height:38px; border-radius:10px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; font-size:18px;
+    background: linear-gradient(135deg, var(--sun), var(--ember)); color:#fff;
+  }
+  .fact-card h4{ font-family:'Rajdhani',sans-serif; font-size:15px; margin-bottom:4px; }
+  .fact-card p{ font-size:12.5px; color:var(--muted); line-height:1.5; }
+
+  @media(max-width:900px){
+    .grid{ grid-template-columns:1fr; }
+    .hero{ flex-direction:column; text-align:left; gap:26px; }
+    .hero-text h1{ font-size:42px; }
+    nav{ display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <div class="icons">
+      <div class="icon-btn">☰</div>
+      <div class="icon-btn">＋</div>
+    </div>
+    <nav>
+      <span>Home</span>
+      <span class="active">Search</span>
+      <span>Message</span>
+    </nav>
+    <div class="auth">
+      <button class="btn-ghost">Log in</button>
+      <button class="btn-solid">Sign up</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <div class="eyebrow">DRAGON BALL</div>
+      <h1>Goku</h1>
+      <p>Ia adalah seorang Saiyan yang dikirim ke Bumi saat masih bayi, dibesarkan sebagai manusia biasa, dan tumbuh menjadi pelindung planet paling kuat sepanjang sejarah alam semesta ketujuh.</p>
+      <span class="read-more">Read More</span>
+      <div class="dots">
+        <span class="on"></span><span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="aura"></div>
+      <div class="figure">
+        <div class="hair">
+          <div class="spike"></div><div class="spike"></div><div class="spike"></div><div class="spike"></div><div class="spike"></div>
+        </div>
+        <div class="head"></div>
+        <div class="body-gi"></div>
+        <div class="belt"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <div>
+      <div class="section-title">Karya Seni <span class="chev">›</span></div>
+      <div class="artwork-cards">
+        <div class="art-card"><div class="zap">🔥</div><div class="credit">by @torishima_fan</div></div>
+        <div class="art-card"><div class="zap">💥</div><div class="credit">by @saiyanpride</div></div>
+      </div>
+      <button class="view-more">View More</button>
+    </div>
+
+    <div>
+      <div class="section-title">Pencarian Terkini</div>
+      <div class="search-list">
+        <div class="search-item"><span class="mag">🔍</span> Kamehameha teknik dasar</div>
+        <div class="search-item"><span class="mag">🔍</span> Urutan transformasi Super Saiyan</div>
+        <div class="search-item"><span class="mag">🔍</span> Lokasi Kapinzil, Planet Namek</div>
+        <div class="search-item dark"><span class="mag">🔍</span> Goku Ultra Instinct</div>
+        <div class="search-item"><span class="mag">🔍</span> Goku wallpaper</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:20px;">
+      <div class="thumbs">
+        <div class="thumb-row">
+          <div class="close-x">✕</div>
+          <div class="thumb">👦</div>
+        </div>
+        <div class="thumb-row">
+          <div class="close-x">✕</div>
+          <div class="thumb">🐒</div>
+        </div>
+      </div>
+      <div class="facts">
+        <div class="fact-card">
+          <div class="fact-icon">🪐</div>
+          <div>
+            <h4>Bangsa Saiyan</h4>
+            <p>Ras petarung dari Planet Vegeta yang menjadi jauh lebih kuat setiap kali bangkit dari pertarungan hampir mati.</p>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-icon">🌊</div>
+          <div>
+            <h4>Kamehameha</h4>
+            <p>Jurus energi andalan yang diwariskan gurunya, Master Roshi, dan menjadi ciri khas Goku di setiap pertarungan besar.</p>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-icon">👴</div>
+          <div>
+            <h4>Son Gohan</h4>
+            <p>Kakek angkat yang menemukan dan membesarkan Goku kecil di kaki Gunung Paozu sebelum ia mengenal jati dirinya.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
